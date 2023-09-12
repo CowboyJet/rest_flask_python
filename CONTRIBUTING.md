@@ -3,13 +3,16 @@
 ## How to run the Dockerfile locally
 
 ```shell
+# optionally build first
+docker build -t flask-smorest-api .
+
 docker run -dp 5000:5000 -w /app -v "$(pwd):/app" flask-smorest-api sh -c "flask run"
 ```
 
 ## How to run the docker worker locally
 
 ```shell
-docker run -w /app --network=host flask-smorest-api sh -c "rq worker -u redis://localhost:6379 emails"
+docker run -w /app --network=host flask-smorest-api sh -c "rq worker -c settings"
 ```
 
 The --network=host is needed if you're running a local redis on wsl as a service
